@@ -1,0 +1,31 @@
+test("Add apple phone to cart", async ({ page }) => {
+  await page.goto("https://www.amazon.com.au/");
+
+  await page.click('div#nav-xshop a:text("Electronics")');
+
+  await expect(page).toHaveTitle(/Electronics/);
+
+  await page.locator("//a[@title='Mobile Phones & Communication']").click();
+
+  await expect(page).toHaveTitle(/Mobile Phones & Communication/);
+
+  await page
+    .locator(
+      "//a[@title='Mobile Phones']//div[@class='a-section octopus-pc-category-card-v2-shield']"
+    )
+    .click();
+
+  await page
+    .locator(
+      "//span[@class='a-size-base a-color-base'][normalize-space()='Apple']"
+    )
+    .click();
+
+  await page
+    .locator(
+      "//span[normalize-space()='Apple iPhone 15 Pro Max (256 GB) - Blue Titanium']"
+    )
+    .click();
+
+  await page.locator("//input[@id='add-to-cart-button-ubb']").click();
+});
